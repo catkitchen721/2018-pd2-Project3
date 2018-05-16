@@ -13,7 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->graphicsView->setScene(scene);
     player->setPixmap(QPixmap(":/res/reimu.jpg"));
-    scene->addItem(player);
+    scene->addItem(static_cast<QGraphicsPixmapItem *>(player));
     player->setPos(0, 0);
     timer->start(10);
 }

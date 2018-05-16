@@ -16,20 +16,32 @@ Player::Player() :
 
 void Player::forwardMoving()
 {
-    if(isforwardMoving) this->setPos(this->x(), this->y() - this->speed);
+    if(isforwardMoving && (this->y() > 0))
+    {
+        this->setPos(this->x(), this->y() - this->speed);
+    }
 }
 
 void Player::leftMoving()
 {
-    if(isleftMoving) this->setPos(this->x() - this->speed, this->y());
+    if(isleftMoving && (this->x() > 0))
+    {
+        this->setPos(this->x() - this->speed, this->y());
+    }
 }
 
 void Player::rightMoving()
 {
-    if(isrightMoving) this->setPos(this->x() + this->speed, this->y());
+    if(isrightMoving && (this->x() < this->scene()->width() - this->pixmap().width()))
+    {
+        this->setPos(this->x() + this->speed, this->y());
+    }
 }
 
 void Player::backwardMoving()
 {
-    if(isbackwardMoving) this->setPos(this->x(), this->y() + this->speed);
+    if(isbackwardMoving && (this->y() < this->scene()->height() - this->pixmap().height()))
+    {
+        this->setPos(this->x(), this->y() + this->speed);
+    }
 }
