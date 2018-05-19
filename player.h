@@ -1,30 +1,17 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include <QObject>
-#include <QGraphicsPixmapItem>
-#include <QGraphicsScene>
-#include <QTimer>
+#include "minion.h"
 
-class Player : public QObject, public QGraphicsPixmapItem
+class Player : public Minion
 {
-    Q_OBJECT
 public:
     Player();
-    bool isforwardMoving;
-    bool isleftMoving;
-    bool isrightMoving;
-    bool isbackwardMoving;
-
-private slots:
-    void forwardMoving();
-    void leftMoving();
-    void rightMoving();
-    void backwardMoving();
-
-private:
-    QTimer *t;
-    int speed;
+    virtual void forwardMoving();
+    virtual void leftMoving();
+    virtual void rightMoving();
+    virtual void backwardMoving();
+    virtual void shooting();
 };
 
 #endif // PLAYER_H

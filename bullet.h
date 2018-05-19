@@ -4,13 +4,16 @@
 #include <QObject>
 #include <QGraphicsPixmapItem>
 #include <QGraphicsScene>
+#include <cmath>
 
-class bullet : public QObject, public QGraphicsPixmapItem
+#include "player.h"
+
+class Bullet : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
 public:
-    bullet();
-    bool isShooting;
+    Bullet();
+    void setBullet(int mode, Minion *minion);
 
 public slots:
     void fly();
@@ -19,6 +22,7 @@ public slots:
 
 private:
     int speed;
+    float inclination;
 };
 
 #endif // BULLET_H

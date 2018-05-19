@@ -5,11 +5,10 @@
 #include <QGraphicsScene>
 #include <QGraphicsPixmapItem>
 #include <QTimer>
+#include <QKeyEvent>
 
 #include "bullet.h"
 #include "player.h"
-
-#include <QKeyEvent>
 
 namespace Ui {
 class MainWindow;
@@ -26,7 +25,6 @@ public:
 public slots:
     virtual void keyPressEvent(QKeyEvent *e);
     virtual void keyReleaseEvent(QKeyEvent *e);
-    virtual void mousePressEvent(QMouseEvent *e);
 
 private:
     Ui::MainWindow *ui;
@@ -36,17 +34,3 @@ private:
 };
 
 #endif // MAINWINDOW_H
-
-
-
-
-
-
-
-
-
-
-
-
-
-
