@@ -19,6 +19,8 @@ MainWindow::MainWindow(QWidget *parent) :
     bgm->setVolume(50);
     bgm->play();
     timer->start(10);
+
+
 }
 
 MainWindow::~MainWindow()

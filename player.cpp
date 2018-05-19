@@ -1,12 +1,18 @@
 #include "player.h"
 #include "bullet.h"
 
-Player::Player() : Minion()
+Player::Player() : Minion(), shootingSound(new QMediaPlayer), playlist(new QMediaPlaylist)
 {
     t->start(10);
     tBullet->start(80);
 
     this->setSpeed(5);
+
+    playlist->addMedia(QUrl("qrc:/audio/resource/shoot.wav"));
+    playlist->setPlaybackMode(QMediaPlaylist::Loop);
+
+    shootingSound->setMedia(playlist);
+    shootingSound->setVolume(80);
 }
 
 void Player::forwardMoving()
@@ -78,5 +84,17 @@ void Player::shooting()
         b[0]->setBullet(0, this);
         b[1]->setBullet(1, this);
         b[2]->setBullet(2, this);
+
+        if(shootingSound->state() == QMediaPlayer::StoppedState)
+        {
+            shootingSound->play();
+        }
+    }
+    else
+    {
+        if(shootingSound->state() == QMediaPlayer::PlayingState)
+        {
+            shootingSound->stop();
+        }
     }
 }

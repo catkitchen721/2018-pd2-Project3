@@ -6,5 +6,6 @@
     </qresource>
     <qresource prefix="audio/">
         <file>resource/bgm.mp3</file>
+        <file>resource/shoot.wav</file>
     </qresource>
 </RCC>
