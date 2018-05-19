@@ -37,10 +37,10 @@ void Bullet::flyR()
 void Bullet::setBullet(int mode, Minion *minion)
 {
     if(qrand() % 2 == 0) {
-        this->setPixmap(QPixmap(":/resource/black_bullet.png").scaled(20, 20));
+        this->setPixmap(QPixmap(":/pic/resource/black_bullet.png").scaled(20, 20));
     }
     else {
-        this->setPixmap(QPixmap(":/resource/red_bullet.png").scaled(20, 20));
+        this->setPixmap(QPixmap(":/pic/resource/red_bullet.png").scaled(20, 20));
     }
     this->setPos(minion->x() + minion->pixmap().width() / 2 - this->pixmap().width() / 2, minion->y() - this->pixmap().height());
 

@@ -6,6 +6,7 @@
 #include <QGraphicsPixmapItem>
 #include <QTimer>
 #include <QKeyEvent>
+#include <QMediaPlayer>
 
 #include "bullet.h"
 #include "player.h"
@@ -31,6 +32,7 @@ private:
     QGraphicsScene *scene;
     Player *player;
     QTimer *timer;
+    QMediaPlayer *bgm;
 };
 
 #endif // MAINWINDOW_H

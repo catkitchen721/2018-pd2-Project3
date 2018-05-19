@@ -6,13 +6,18 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow),
     scene(new QGraphicsScene(0, 0, 1000, 1000)),
     player(new Player),
-    timer(new QTimer)
+    timer(new QTimer),
+    bgm(new QMediaPlayer)
 {
     ui->setupUi(this);
     ui->graphicsView->setScene(scene);
-    player->setPixmap(QPixmap(":/resource/player.png"));
+    player->setPixmap(QPixmap(":/pic/resource/player.png"));
     scene->addItem(static_cast<QGraphicsPixmapItem *>(player));
     player->setPos(0, 0);
+
+    bgm->setMedia(QMediaContent(QUrl("qrc:/audio/resource/bgm.mp3")));
+    bgm->setVolume(50);
+    bgm->play();
     timer->start(10);
 }
 
