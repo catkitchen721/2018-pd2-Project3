@@ -20,3 +20,24 @@ int Minion::getSpeed()
 {
     return this->speed;
 }
+
+const QRectF Minion::boundingRect()
+{
+    qreal w = this->pixmap().width() / 4;
+    qreal h = this->pixmap().height() / 4;
+
+    qreal x = this->x() + (this->pixmap().width());
+    qreal y = this->y() + (this->pixmap().height());
+
+    return QRectF(x, y, w, h);
+}
+
+
+void Minion::stopInitialGo()
+{
+    isforwardMoving = false;
+    this->setSpeed(5);
+    t->start(10);
+    isinitialing = false;
+}
+

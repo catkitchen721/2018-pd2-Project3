@@ -4,7 +4,7 @@
 Bullet::Bullet()
 {
     this->speed = 12;
-    this->inclination = 1.5;
+    this->inclination = 5;
 }
 
 void Bullet::fly()
@@ -37,10 +37,10 @@ void Bullet::flyR()
 void Bullet::setBullet(int mode, Minion *minion)
 {
     if(qrand() % 2 == 0) {
-        this->setPixmap(QPixmap(":/pic/resource/black_bullet.png").scaled(20, 20));
+        this->setPixmap(QPixmap(":/pic/resource/0.png").scaled(40, 40));
     }
     else {
-        this->setPixmap(QPixmap(":/pic/resource/red_bullet.png").scaled(20, 20));
+        this->setPixmap(QPixmap(":/pic/resource/1.png").scaled(40, 40));
     }
     this->setPos(minion->x() + minion->pixmap().width() / 2 - this->pixmap().width() / 2, minion->y() - this->pixmap().height());
 
@@ -58,4 +58,15 @@ void Bullet::setBullet(int mode, Minion *minion)
     }
 
     minion->scene()->addItem(static_cast<QGraphicsPixmapItem*>(this));
+}
+
+const QRectF Bullet::boundingRect()
+{
+    qreal w = this->pixmap().width() / 2;
+    qreal h = this->pixmap().height() / 2;
+
+    qreal x = this->x() + (this->pixmap().width() / 2) - (w / 2);
+    qreal y = this->y() + (this->pixmap().height() / 2) - (h / 2);
+
+    return QRectF(x, y, w, h);
 }

@@ -15,6 +15,8 @@ public:
     Bullet();
     void setBullet(int mode, Minion *minion);
 
+    virtual const QRectF boundingRect();
+
 public slots:
     void fly();
     void flyL();

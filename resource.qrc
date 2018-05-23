@@ -1,8 +1,9 @@
 <RCC>
     <qresource prefix="pic/">
+        <file>resource/0.png</file>
+        <file>resource/1.png</file>
         <file>resource/player.png</file>
-        <file>resource/black_bullet.png</file>
-        <file>resource/red_bullet.png</file>
+        <file>resource/bg.jpeg</file>
     </qresource>
     <qresource prefix="audio/">
         <file>resource/bgm.mp3</file>

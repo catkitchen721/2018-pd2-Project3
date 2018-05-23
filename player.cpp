@@ -3,16 +3,19 @@
 
 Player::Player() : Minion(), shootingSound(new QMediaPlayer), playlist(new QMediaPlaylist)
 {
-    t->start(10);
     tBullet->start(80);
-
-    this->setSpeed(5);
 
     playlist->addMedia(QUrl("qrc:/audio/resource/shoot.wav"));
     playlist->setPlaybackMode(QMediaPlaylist::Loop);
 
     shootingSound->setMedia(playlist);
-    shootingSound->setVolume(80);
+    shootingSound->setVolume(60);
+
+    isinitialing = true;
+    this->setSpeed(3);
+    isforwardMoving = true;
+    t->start(50);
+    t->singleShot(800, this, SLOT(stopInitialGo()));
 }
 
 void Player::forwardMoving()
@@ -34,11 +37,11 @@ void Player::forwardMoving()
 
 void Player::leftMoving()
 {
-    if(isforwardMoving && isleftMoving && (this->y() > 0))
+    if(isforwardMoving && isleftMoving && (this->x() > 100))
     {
         this->setPos(this->x() - this->getSpeed()/sqrt(2), this->y());
     }
-    else if(isleftMoving && (this->x() > 0))
+    else if(isleftMoving && (this->x() > 100))
     {
         this->setPos(this->x() - this->getSpeed(), this->y());
     }
@@ -46,11 +49,11 @@ void Player::leftMoving()
 
 void Player::rightMoving()
 { 
-    if(isforwardMoving && isrightMoving && (this->y() > 0))
+    if(isforwardMoving && isrightMoving && (this->x() < this->scene()->width() - 100 - this->pixmap().width()))
     {
         this->setPos(this->x() + this->getSpeed()/sqrt(2), this->y());
     }
-    else if(isrightMoving && (this->x() < this->scene()->width() - this->pixmap().width()))
+    else if(isrightMoving && (this->x() < this->scene()->width() - 100 - this->pixmap().width()))
     {
         this->setPos(this->x() + this->getSpeed(), this->y());
     }
@@ -58,11 +61,11 @@ void Player::rightMoving()
 
 void Player::backwardMoving()
 {
-    if(isbackwardMoving && isleftMoving && (this->y() > 0))
+    if(isbackwardMoving && isleftMoving && (this->y() < this->scene()->height() - this->pixmap().height()))
     {
         this->setPos(this->x(), this->y() + this->getSpeed()/sqrt(2));
     }
-    else if(isbackwardMoving && isrightMoving && (this->y() > 0))
+    else if(isbackwardMoving && isrightMoving && (this->y() < this->scene()->height() - this->pixmap().height()))
     {
         this->setPos(this->x(), this->y() + this->getSpeed()/sqrt(2));
     }

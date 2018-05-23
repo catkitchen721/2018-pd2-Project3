@@ -4,23 +4,25 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    scene(new QGraphicsScene(0, 0, 1000, 1000)),
+    scene(new QGraphicsScene(0, 0, 800, 600)),
     player(new Player),
     timer(new QTimer),
     bgm(new QMediaPlayer)
 {
     ui->setupUi(this);
     ui->graphicsView->setScene(scene);
-    player->setPixmap(QPixmap(":/pic/resource/player.png"));
+    scene->addPixmap(QPixmap(":/pic/resource/bg.jpeg").scaled(800, 600));
+    player->setPixmap(QPixmap(":/pic/resource/player.png").scaled(64, 64));
     scene->addItem(static_cast<QGraphicsPixmapItem *>(player));
-    player->setPos(0, 0);
+    player->setPos(350, 550);
 
     bgm->setMedia(QMediaContent(QUrl("qrc:/audio/resource/bgm.mp3")));
     bgm->setVolume(50);
     bgm->play();
     timer->start(10);
 
-
+    ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 }
 
 MainWindow::~MainWindow()
@@ -30,6 +32,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::keyPressEvent(QKeyEvent *e)
 {
+    if(player->isinitialing == true) return;
+
     switch(e->key()) {
 
     case Qt::Key_W:
@@ -71,6 +75,8 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
 
 void MainWindow::keyReleaseEvent(QKeyEvent *e)
 {
+    if(player->isinitialing == true) return;
+
     switch(e->key()) {
 
     case Qt::Key_W:

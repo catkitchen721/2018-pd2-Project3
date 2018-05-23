@@ -6,12 +6,14 @@
 #include <QGraphicsPixmapItem>
 #include <QGraphicsScene>
 #include <QTimer>
+#include <QPainter>
 
 class Minion : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
 public:
     Minion();
+    bool isinitialing;
     bool isforwardMoving;
     bool isleftMoving;
     bool isrightMoving;
@@ -22,6 +24,9 @@ public:
 
     void setSpeed(int speed);
     int getSpeed();
+
+    virtual const QRectF boundingRect();
+
     friend class bullet;
 
 private slots:
@@ -30,8 +35,9 @@ private slots:
     virtual void rightMoving() = 0;
     virtual void backwardMoving() = 0;
     virtual void shooting() = 0;
+    void stopInitialGo();
 
-private:
+protected:
     int speed;
 };
 
