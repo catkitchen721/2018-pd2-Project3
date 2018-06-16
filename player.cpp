@@ -109,7 +109,6 @@ void Player::shooting()
 void Player::checkHit()
 {
     QList<QGraphicsItem *> colliders = this->collidingItems();
-    qDebug() << this->hp << endl;
     for(int i=0; i<colliders.size(); ++i)
     {
         if(typeid(*(colliders[i])) == typeid(EnemyBullet))

@@ -18,6 +18,8 @@ MainWindow::MainWindow(QWidget *parent) :
     scene->addItem(static_cast<QGraphicsPixmapItem *>(player));
     player->setPos(350, 550);
 
+    this->setWindowTitle("D - D - O - S !!");
+
     bgm->setMedia(QMediaContent(QUrl("qrc:/audio/resource/bgm.mp3")));
     bgmPlaylist->addMedia(QUrl("qrc:/audio/resource/bgm.mp3"));
     bgmPlaylist->setPlaybackMode(QMediaPlaylist::Loop);
