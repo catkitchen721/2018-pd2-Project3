@@ -35,13 +35,9 @@ void EnemyBullet::flyR()
 
 void EnemyBullet::setBullet(int mode, Minion *minion)
 {
-    if(qrand() % 2 == 0) {
-        this->setPixmap(QPixmap(":/pic/resource/0.png").scaled(40, 40));
-    }
-    else {
-        this->setPixmap(QPixmap(":/pic/resource/1.png").scaled(40, 40));
-    }
-    this->setPos(minion->x() + minion->pixmap().width() / 2 - this->pixmap().width() / 2, minion->y() + this->pixmap().height());
+    this->setPixmap(QPixmap(":/pic/resource/bomb.png").scaled(40, 40));
+
+    this->setPos(minion->x() + minion->pixmap().width() / 2 - this->pixmap().width() / 2, minion->y() + this->pixmap().height() * 2);
 
     if(mode == 0)
     {

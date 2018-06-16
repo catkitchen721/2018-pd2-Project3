@@ -39,6 +39,7 @@ private:
     QTimer *timer;
     QTimer *enemyMovingFreq;
     QMediaPlayer *bgm;
+    QMediaPlaylist *bgmPlaylist;
     int countTime;
     int directionChoose;
 };

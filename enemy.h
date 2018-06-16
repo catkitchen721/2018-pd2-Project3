@@ -13,6 +13,8 @@ public:
     virtual void backwardMoving();
     virtual void shooting();
 
+public slots:
+    virtual void checkHit();
 
 };
 

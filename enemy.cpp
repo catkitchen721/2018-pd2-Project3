@@ -5,7 +5,10 @@ Enemy::Enemy() : Minion()
 {
     tBullet->start(200);
     t->start(100);
-    this->setSpeed(5);
+    this->setSpeed(10);
+    this->setHP(50000);
+
+    connect(t, SIGNAL(timeout()), this, SLOT(checkHit()));
 }
 
 void Enemy::forwardMoving()
@@ -80,5 +83,20 @@ void Enemy::shooting()
     }
     else
     {
+    }
+}
+
+void Enemy::checkHit()
+{
+    QList<QGraphicsItem *> colliders = this->collidingItems();
+    for(int i=0; i<colliders.size(); ++i)
+    {
+        if(typeid(*(colliders[i])) == typeid(Bullet))
+        {
+            this->isHit(50);
+            this->scene()->removeItem(colliders[i]);
+            delete colliders[i];
+            qDebug() << this->hp << endl;
+        }
     }
 }

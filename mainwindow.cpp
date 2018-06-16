@@ -7,19 +7,24 @@ MainWindow::MainWindow(QWidget *parent) :
     scene(new QGraphicsScene(0, 0, 800, 600)),
     player(new Player),
     timer(new QTimer),
-    bgm(new QMediaPlayer)
+    bgm(new QMediaPlayer),
+    bgmPlaylist(new QMediaPlaylist)
 {
     ui->setupUi(this);
     ui->graphicsView->setScene(scene);
     scene->addPixmap(QPixmap(":/pic/resource/bg.jpeg").scaled(800, 1200));
     scene->setSceneRect(0, 0, 800, 600);
-    player->setPixmap(QPixmap(":/pic/resource/player.png").scaled(64, 64));
+    player->setPixmap(QPixmap(":/pic/resource/player.png").scaled(32, 32));
     scene->addItem(static_cast<QGraphicsPixmapItem *>(player));
     player->setPos(350, 550);
 
     bgm->setMedia(QMediaContent(QUrl("qrc:/audio/resource/bgm.mp3")));
+    bgmPlaylist->addMedia(QUrl("qrc:/audio/resource/bgm.mp3"));
+    bgmPlaylist->setPlaybackMode(QMediaPlaylist::Loop);
+    bgm->setMedia(bgmPlaylist);
     bgm->setVolume(50);
     bgm->play();
+
     timer->start(10);
 
     //countTime = 0;
@@ -30,7 +35,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     enemy = new Enemy;
     scene->addItem(static_cast<QGraphicsPixmapItem *>(enemy));
-    enemy->setPixmap(QPixmap(":/pic/resource/player.png").scaled(64, 64));
+    enemy->setPixmap(QPixmap(":/pic/resource/enemy.png").scaled(128, 128));
     enemy->setPos(350, 50);
 
     enemyMovingFreq = new QTimer();
@@ -65,30 +70,41 @@ void MainWindow::enemyMovingByAI()
 {
     if(!enemy->isforwardMoving && !enemy->isbackwardMoving && !enemy->isrightMoving && !enemy->isleftMoving)
     {
-        directionChoose = qrand() % 4;
+
+        if(enemy->x() == 100) directionChoose = 0;
+        else if(enemy->x() == enemy->scene()->width() - 100 - enemy->pixmap().width()) directionChoose = 1;
+        else directionChoose = qrand() % 2;
     }
 
     switch(directionChoose)
     {
-    case 0:
+    /*case 0:
         if(!enemy->isforwardMoving) enemy->isforwardMoving = true;
         else enemy->isforwardMoving = false;
         break;
     case 1:
         if(!enemy->isbackwardMoving) enemy->isbackwardMoving = true;
         else enemy->isbackwardMoving = false;
-        break;
-    case 2:
+        break;*/
+    case 0:
         if(!enemy->isrightMoving) enemy->isrightMoving = true;
         else enemy->isrightMoving = false;
         break;
-    case 3:
+    case 1:
         if(!enemy->isleftMoving) enemy->isleftMoving = true;
         else enemy->isleftMoving = false;
         break;
     }
-    if(!enemy->isshooting) enemy->isshooting = true;
-    else enemy->isshooting = false;
+    if(!enemy->isshooting)
+    {
+        enemy->isshooting = true;
+        enemy->setPixmap(QPixmap(":/pic/resource/enemyShoot.png").scaled(128, 128));
+    }
+    else
+    {
+        enemy->isshooting = false;
+        enemy->setPixmap(QPixmap(":/pic/resource/enemy.png").scaled(128, 128));
+    }
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *e)

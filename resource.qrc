@@ -4,6 +4,9 @@
         <file>resource/1.png</file>
         <file>resource/player.png</file>
         <file>resource/bg.jpeg</file>
+        <file>resource/bomb.png</file>
+        <file>resource/enemy.png</file>
+        <file>resource/enemyShoot.png</file>
     </qresource>
     <qresource prefix="audio/">
         <file>resource/bgm.mp3</file>

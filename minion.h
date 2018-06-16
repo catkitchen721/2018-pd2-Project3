@@ -25,6 +25,9 @@ public:
     void setSpeed(int speed);
     int getSpeed();
 
+    void setHP(int hp);
+    void isHit(int hpConsume);
+
     virtual const QRectF boundingRect();
 
     friend class bullet;
@@ -35,10 +38,13 @@ private slots:
     virtual void rightMoving() = 0;
     virtual void backwardMoving() = 0;
     virtual void shooting() = 0;
+    virtual void checkHit() = 0;
     void stopInitialGo();
+
 
 protected:
     int speed;
+    int hp;
 };
 
 #endif // MINION_H

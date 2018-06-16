@@ -41,3 +41,13 @@ void Minion::stopInitialGo()
     isinitialing = false;
 }
 
+void Minion::setHP(int hp)
+{
+    this->hp = hp;
+}
+
+void Minion::isHit(int hpConsume)
+{
+    this->hp -= hpConsume;
+}
+

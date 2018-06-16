@@ -1,5 +1,6 @@
 #include "player.h"
 #include "bullet.h"
+#include "enemybullet.h"
 
 Player::Player() : Minion(), shootingSound(new QMediaPlayer), playlist(new QMediaPlaylist)
 {
@@ -16,6 +17,9 @@ Player::Player() : Minion(), shootingSound(new QMediaPlayer), playlist(new QMedi
     isforwardMoving = true;
     t->start(50);
     t->singleShot(800, this, SLOT(stopInitialGo()));
+
+    this->setHP(3);
+    connect(t, SIGNAL(timeout()), this, SLOT(checkHit()));
 }
 
 void Player::forwardMoving()
@@ -98,6 +102,21 @@ void Player::shooting()
         if(shootingSound->state() == QMediaPlayer::PlayingState)
         {
             shootingSound->stop();
+        }
+    }
+}
+
+void Player::checkHit()
+{
+    QList<QGraphicsItem *> colliders = this->collidingItems();
+    qDebug() << this->hp << endl;
+    for(int i=0; i<colliders.size(); ++i)
+    {
+        if(typeid(*(colliders[i])) == typeid(EnemyBullet))
+        {
+            this->isHit(1);
+            delete colliders[i];
+            qDebug() << this->hp << endl;
         }
     }
 }
