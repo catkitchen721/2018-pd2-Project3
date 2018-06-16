@@ -3,6 +3,8 @@
 
 #include "minion.h"
 
+#define TOTAL_HP 50000
+
 class Enemy : public Minion
 {
 public:
@@ -12,6 +14,8 @@ public:
     virtual void rightMoving();
     virtual void backwardMoving();
     virtual void shooting();
+
+    bool isDead;
 
 public slots:
     virtual void checkHit();

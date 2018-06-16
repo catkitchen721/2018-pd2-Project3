@@ -46,6 +46,11 @@ void Minion::setHP(int hp)
     this->hp = hp;
 }
 
+int Minion::getHP()
+{
+    return this->hp;
+}
+
 void Minion::isHit(int hpConsume)
 {
     this->hp -= hpConsume;

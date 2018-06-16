@@ -8,6 +8,8 @@ Enemy::Enemy() : Minion()
     this->setSpeed(10);
     this->setHP(50000);
 
+    this->isDead = false;
+
     connect(t, SIGNAL(timeout()), this, SLOT(checkHit()));
 }
 
@@ -88,15 +90,26 @@ void Enemy::shooting()
 
 void Enemy::checkHit()
 {
-    QList<QGraphicsItem *> colliders = this->collidingItems();
-    for(int i=0; i<colliders.size(); ++i)
+    if(!this->isDead)
     {
-        if(typeid(*(colliders[i])) == typeid(Bullet))
+        QList<QGraphicsItem *> colliders = this->collidingItems();
+        for(int i=0; i<colliders.size(); ++i)
         {
-            this->isHit(50);
-            this->scene()->removeItem(colliders[i]);
-            delete colliders[i];
-            qDebug() << this->hp << endl;
+            if(typeid(*(colliders[i])) == typeid(Bullet))
+            {
+                if(this->getHP() <= 0)
+                {
+                    this->isDead = true;
+                    return;
+                }
+                else this->isHit(5000);
+                this->scene()->removeItem(colliders[i]);
+                delete colliders[i];
+            }
         }
+    }
+    else
+    {
+        this->setVisible(false);
     }
 }

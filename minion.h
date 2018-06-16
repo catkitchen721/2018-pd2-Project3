@@ -26,6 +26,7 @@ public:
     int getSpeed();
 
     void setHP(int hp);
+    int getHP();
     void isHit(int hpConsume);
 
     virtual const QRectF boundingRect();

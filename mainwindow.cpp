@@ -47,6 +47,9 @@ MainWindow::MainWindow(QWidget *parent) :
     enemy->isshooting = true;
 
     connect(enemyMovingFreq, SIGNAL(timeout()), this, SLOT(enemyMovingByAI()));
+    connect(timer, SIGNAL(timeout()), this, SLOT(updateLCD()));
+
+    this->isWin = false;
 }
 
 MainWindow::~MainWindow()
@@ -70,6 +73,11 @@ void MainWindow::backgroundMoving()
 
 void MainWindow::enemyMovingByAI()
 {
+    if(enemy->isDead)
+    {
+        this->enemyMovingFreq->stop();
+        return;
+    }
     if(!enemy->isforwardMoving && !enemy->isbackwardMoving && !enemy->isrightMoving && !enemy->isleftMoving)
     {
 
@@ -192,5 +200,28 @@ void MainWindow::keyReleaseEvent(QKeyEvent *e)
             player->isshooting = false;
         }
         break;
+    }
+}
+
+void MainWindow::updateLCD()
+{
+    if(this->isWin) return;
+    if(!enemy->isDead)
+    {
+        ui->currentTolerance->display(TOTAL_HP - enemy->getHP());
+        ui->restLife->display(player->getHP());
+        if(player->getHP() <= 0)
+        {
+            ui->restLife->display(0);
+        }
+    }
+    else
+    {
+        ui->currentTolerance->display(66666);
+        ui->totalTolerance->display(66666);
+        ui->restLife->display(6);
+        ui->restBomb->display(6);
+        this->isWin = true;
+        enemy->deleteLater();
     }
 }

@@ -30,6 +30,7 @@ public slots:
 
     void backgroundMoving();
     void enemyMovingByAI();
+    void updateLCD();
 
 private:
     Ui::MainWindow *ui;
@@ -42,6 +43,7 @@ private:
     QMediaPlaylist *bgmPlaylist;
     int countTime;
     int directionChoose;
+    int isWin;
 };
 
 #endif // MAINWINDOW_H

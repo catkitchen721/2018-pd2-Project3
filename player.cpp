@@ -113,9 +113,15 @@ void Player::checkHit()
     {
         if(typeid(*(colliders[i])) == typeid(EnemyBullet))
         {
-            this->isHit(1);
+            if(this->getHP() <= 0)
+            {
+                this->setHP(0);
+            }
+            else
+            {
+                this->isHit(1);
+            }
             delete colliders[i];
-            qDebug() << this->hp << endl;
         }
     }
 }
