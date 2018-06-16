@@ -12,6 +12,8 @@ public:
     virtual void rightMoving();
     virtual void backwardMoving();
     virtual void shooting();
+
+
 };
 
 #endif // ENEMY_H

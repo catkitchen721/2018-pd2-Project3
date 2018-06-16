@@ -22,7 +22,7 @@ public slots:
     virtual void flyL();
     virtual void flyR();
 
-private:
+protected:
     int speed;
     float inclination;
 };

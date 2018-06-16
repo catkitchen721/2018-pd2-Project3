@@ -29,6 +29,7 @@ public slots:
     virtual void keyReleaseEvent(QKeyEvent *e);
 
     void backgroundMoving();
+    void enemyMovingByAI();
 
 private:
     Ui::MainWindow *ui;
@@ -36,8 +37,10 @@ private:
     Player *player;
     Enemy *enemy;
     QTimer *timer;
+    QTimer *enemyMovingFreq;
     QMediaPlayer *bgm;
     int countTime;
+    int directionChoose;
 };
 
 #endif // MAINWINDOW_H

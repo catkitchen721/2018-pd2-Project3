@@ -3,8 +3,9 @@
 
 Enemy::Enemy() : Minion()
 {
-    tBullet->start(80);
-    t->start(50);
+    tBullet->start(200);
+    t->start(100);
+    this->setSpeed(5);
 }
 
 void Enemy::forwardMoving()

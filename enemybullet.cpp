@@ -2,6 +2,8 @@
 
 EnemyBullet::EnemyBullet() :Bullet()
 {
+    this->speed = 10;
+    this->inclination = 2;
 }
 
 void EnemyBullet::fly()

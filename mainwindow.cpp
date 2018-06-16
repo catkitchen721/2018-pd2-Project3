@@ -32,6 +32,14 @@ MainWindow::MainWindow(QWidget *parent) :
     scene->addItem(static_cast<QGraphicsPixmapItem *>(enemy));
     enemy->setPixmap(QPixmap(":/pic/resource/player.png").scaled(64, 64));
     enemy->setPos(350, 50);
+
+    enemyMovingFreq = new QTimer();
+    enemyMovingFreq->start(2000);
+
+    enemy->isbackwardMoving = false;
+    enemy->isshooting = true;
+
+    connect(enemyMovingFreq, SIGNAL(timeout()), this, SLOT(enemyMovingByAI()));
 }
 
 MainWindow::~MainWindow()
@@ -51,6 +59,36 @@ void MainWindow::backgroundMoving()
         scene->setSceneRect(0, 600 - countTime * 1, 800, 600);
         ++countTime;
     }
+}
+
+void MainWindow::enemyMovingByAI()
+{
+    if(!enemy->isforwardMoving && !enemy->isbackwardMoving && !enemy->isrightMoving && !enemy->isleftMoving)
+    {
+        directionChoose = qrand() % 4;
+    }
+
+    switch(directionChoose)
+    {
+    case 0:
+        if(!enemy->isforwardMoving) enemy->isforwardMoving = true;
+        else enemy->isforwardMoving = false;
+        break;
+    case 1:
+        if(!enemy->isbackwardMoving) enemy->isbackwardMoving = true;
+        else enemy->isbackwardMoving = false;
+        break;
+    case 2:
+        if(!enemy->isrightMoving) enemy->isrightMoving = true;
+        else enemy->isrightMoving = false;
+        break;
+    case 3:
+        if(!enemy->isleftMoving) enemy->isleftMoving = true;
+        else enemy->isleftMoving = false;
+        break;
+    }
+    if(!enemy->isshooting) enemy->isshooting = true;
+    else enemy->isshooting = false;
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *e)
