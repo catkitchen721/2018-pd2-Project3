@@ -11,7 +11,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->graphicsView->setScene(scene);
-    scene->addPixmap(QPixmap(":/pic/resource/bg.jpeg").scaled(800, 600));
+    scene->addPixmap(QPixmap(":/pic/resource/bg.jpeg").scaled(800, 1200));
+    scene->setSceneRect(0, 0, 800, 600);
     player->setPixmap(QPixmap(":/pic/resource/player.png").scaled(64, 64));
     scene->addItem(static_cast<QGraphicsPixmapItem *>(player));
     player->setPos(350, 550);
@@ -21,13 +22,35 @@ MainWindow::MainWindow(QWidget *parent) :
     bgm->play();
     timer->start(10);
 
+    //countTime = 0;
+    //connect(timer, SIGNAL(timeout()), this, SLOT(backgroundMoving()));
+
     ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+    enemy = new Enemy;
+    scene->addItem(static_cast<QGraphicsPixmapItem *>(enemy));
+    enemy->setPixmap(QPixmap(":/pic/resource/player.png").scaled(64, 64));
+    enemy->setPos(350, 50);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::backgroundMoving()
+{
+    if(countTime == 600)
+    {
+        scene->setSceneRect(0, 600 - countTime * 1, 800, 600);
+        countTime = 0;
+    }
+    else
+    {
+        scene->setSceneRect(0, 600 - countTime * 1, 800, 600);
+        ++countTime;
+    }
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *e)

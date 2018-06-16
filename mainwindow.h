@@ -10,6 +10,7 @@
 
 #include "bullet.h"
 #include "player.h"
+#include "enemy.h"
 
 namespace Ui {
 class MainWindow;
@@ -27,12 +28,16 @@ public slots:
     virtual void keyPressEvent(QKeyEvent *e);
     virtual void keyReleaseEvent(QKeyEvent *e);
 
+    void backgroundMoving();
+
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene;
     Player *player;
+    Enemy *enemy;
     QTimer *timer;
     QMediaPlayer *bgm;
+    int countTime;
 };
 
 #endif // MAINWINDOW_H

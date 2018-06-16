@@ -28,13 +28,17 @@ SOURCES += \
         mainwindow.cpp \
     bullet.cpp \
     minion.cpp \
-    player.cpp
+    player.cpp \
+    enemy.cpp \
+    enemybullet.cpp
 
 HEADERS += \
         mainwindow.h \
     bullet.h \
     minion.h \
-    player.h
+    player.h \
+    enemy.h \
+    enemybullet.h
 
 FORMS += \
         mainwindow.ui

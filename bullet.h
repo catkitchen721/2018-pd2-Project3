@@ -13,14 +13,14 @@ class Bullet : public QObject, public QGraphicsPixmapItem
     Q_OBJECT
 public:
     Bullet();
-    void setBullet(int mode, Minion *minion);
+    virtual void setBullet(int mode, Minion *minion);
 
     virtual const QRectF boundingRect();
 
 public slots:
-    void fly();
-    void flyL();
-    void flyR();
+    virtual void fly();
+    virtual void flyL();
+    virtual void flyR();
 
 private:
     int speed;
