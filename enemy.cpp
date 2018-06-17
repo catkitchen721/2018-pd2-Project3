@@ -118,7 +118,7 @@ void Enemy::checkHit()
                     this->isDead = true;
                     return;
                 }
-                else this->isHit(500);
+                else this->isHit(50);
                 this->scene()->removeItem(colliders[i]);
                 delete colliders[i];
             }
