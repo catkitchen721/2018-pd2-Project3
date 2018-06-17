@@ -54,3 +54,12 @@ void EnemyBullet::setBullet(int mode, Minion *minion)
 
     minion->scene()->addItem(static_cast<QGraphicsPixmapItem*>(this));
 }
+
+void EnemyBullet::setSpeed(int speed)
+{
+    this->speed = speed;
+}
+void EnemyBullet::setInclination(int inclination)
+{
+    this->inclination = inclination;
+}

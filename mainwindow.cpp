@@ -105,6 +105,8 @@ void MainWindow::enemyMovingByAI()
         else enemy->isleftMoving = false;
         break;
     }
+
+
     if(!enemy->isshooting)
     {
         enemy->isshooting = true;
@@ -157,6 +159,13 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
             player->isshooting = true;
         }
         break;
+
+    case Qt::Key_K:
+        if(!e->isAutoRepeat())
+        {
+            player->bomb();
+        }
+        break;
     }
 }
 
@@ -200,6 +209,13 @@ void MainWindow::keyReleaseEvent(QKeyEvent *e)
             player->isshooting = false;
         }
         break;
+
+    case Qt::Key_K:
+        if(!e->isAutoRepeat())
+        {
+
+        }
+        break;
     }
 }
 
@@ -210,9 +226,11 @@ void MainWindow::updateLCD()
     {
         ui->currentTolerance->display(TOTAL_HP - enemy->getHP());
         ui->restLife->display(player->getHP());
+        ui->restBomb->display(player->getBombNum());
         if(player->getHP() <= 0)
         {
             ui->restLife->display(0);
+            ui->restBomb->display(0);
         }
     }
     else

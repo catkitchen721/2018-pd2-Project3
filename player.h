@@ -16,12 +16,17 @@ public:
     virtual void backwardMoving();
     virtual void shooting();
 
+    void bomb();
+    void setBombNum(int num);
+    int getBombNum();
+
 public slots:
     virtual void checkHit();
 
 private:
     QMediaPlayer *shootingSound;
     QMediaPlaylist *playlist;
+    int bombNum;
 };
 
 #endif // PLAYER_H

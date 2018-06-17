@@ -19,6 +19,7 @@ Player::Player() : Minion(), shootingSound(new QMediaPlayer), playlist(new QMedi
     t->singleShot(800, this, SLOT(stopInitialGo()));
 
     this->setHP(3);
+    this->setBombNum(3);
     connect(t, SIGNAL(timeout()), this, SLOT(checkHit()));
 }
 
@@ -104,6 +105,31 @@ void Player::shooting()
             shootingSound->stop();
         }
     }
+}
+
+void Player::bomb()
+{
+    if(this->bombNum <= 0) return;
+    this->bombNum -= 1;
+    Bullet *b[20];
+
+    for(int i=0; i<20; ++i)
+    {
+        b[i] = new Bullet;
+        b[i]->isBomb = true;
+        b[i]->setPos(this->x() + this->pixmap().width() / 2 - b[i]->pixmap().width() / 2 - 50 + 5*i, this->y() - b[i]->pixmap().height());
+        b[i]->setBullet(0, this);
+    }
+}
+
+void Player::setBombNum(int num)
+{
+    this->bombNum = num;
+}
+
+int Player::getBombNum()
+{
+    return this->bombNum;
 }
 
 void Player::checkHit()

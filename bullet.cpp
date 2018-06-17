@@ -5,6 +5,7 @@ Bullet::Bullet()
 {
     this->speed = 12;
     this->inclination = 5;
+    this->isBomb = false;
 }
 
 void Bullet::fly()
@@ -42,7 +43,11 @@ void Bullet::setBullet(int mode, Minion *minion)
     else {
         this->setPixmap(QPixmap(":/pic/resource/1.png").scaled(30, 30));
     }
-    this->setPos(minion->x() + minion->pixmap().width() / 2 - this->pixmap().width() / 2, minion->y() - this->pixmap().height());
+
+    if(!this->isBomb)
+    {
+        this->setPos(minion->x() + minion->pixmap().width() / 2 - this->pixmap().width() / 2, minion->y() - this->pixmap().height());
+    }
 
     if(mode == 0)
     {

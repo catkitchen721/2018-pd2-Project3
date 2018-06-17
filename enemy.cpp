@@ -79,6 +79,22 @@ void Enemy::shooting()
         b[1] = new EnemyBullet;
         b[2] = new EnemyBullet;
 
+        if(this->hp <= 30000)
+        {
+            b[0]->setSpeed(15);
+            b[1]->setSpeed(15);
+            b[2]->setSpeed(15);
+        }
+        else if(this->hp <= 10000)
+        {
+            b[0]->setSpeed(30);
+            b[1]->setSpeed(30);
+            b[2]->setSpeed(30);
+            b[0]->setInclination(2);
+            b[1]->setInclination(2);
+            b[2]->setInclination(2);
+        }
+
         b[0]->setBullet(0, this);
         b[1]->setBullet(1, this);
         b[2]->setBullet(2, this);
@@ -102,7 +118,7 @@ void Enemy::checkHit()
                     this->isDead = true;
                     return;
                 }
-                else this->isHit(5000);
+                else this->isHit(500);
                 this->scene()->removeItem(colliders[i]);
                 delete colliders[i];
             }

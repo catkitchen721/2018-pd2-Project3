@@ -17,6 +17,8 @@ public:
 
     virtual const QRectF boundingRect();
 
+    bool isBomb;
+
 public slots:
     virtual void fly();
     virtual void flyL();
