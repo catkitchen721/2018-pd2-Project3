@@ -31,6 +31,7 @@ public slots:
     void backgroundMoving();
     void enemyMovingByAI();
     void updateLCD();
+    void countScore();
 
 private:
     Ui::MainWindow *ui;
@@ -39,11 +40,14 @@ private:
     Enemy *enemy;
     QTimer *timer;
     QTimer *enemyMovingFreq;
+    QTimer *realTimer;
     QMediaPlayer *bgm;
     QMediaPlaylist *bgmPlaylist;
     int countTime;
+    long currentTime;
     int directionChoose;
-    int isWin;
+    int score;
+    bool isWin;
 };
 
 #endif // MAINWINDOW_H

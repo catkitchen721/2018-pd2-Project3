@@ -16,6 +16,8 @@ public:
     virtual void backwardMoving();
     virtual void shooting();
 
+    bool isDead;
+
     void bomb();
     void setBombNum(int num);
     int getBombNum();

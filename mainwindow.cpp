@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
     scene(new QGraphicsScene(0, 0, 800, 600)),
     player(new Player),
     timer(new QTimer),
+    realTimer(new QTimer),
     bgm(new QMediaPlayer),
     bgmPlaylist(new QMediaPlaylist)
 {
@@ -28,6 +29,7 @@ MainWindow::MainWindow(QWidget *parent) :
     bgm->play();
 
     timer->start(10);
+    realTimer->start(1000);
 
     //countTime = 0;
     //connect(timer, SIGNAL(timeout()), this, SLOT(backgroundMoving()));
@@ -48,8 +50,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(enemyMovingFreq, SIGNAL(timeout()), this, SLOT(enemyMovingByAI()));
     connect(timer, SIGNAL(timeout()), this, SLOT(updateLCD()));
+    connect(realTimer, SIGNAL(timeout()), this, SLOT(countScore()));
 
     this->isWin = false;
+    this->score = 10000000;
+    this->currentTime = 0l;
 }
 
 MainWindow::~MainWindow()
@@ -68,6 +73,29 @@ void MainWindow::backgroundMoving()
     {
         scene->setSceneRect(0, 600 - countTime * 1, 800, 600);
         ++countTime;
+    }
+}
+
+void MainWindow::countScore()
+{
+    ++this->currentTime;
+    if(player->isDead) this->score = 0;
+    if(this->score <= 0) return;
+    if(currentTime <= 10l)
+    {
+        this->score -= 148763;
+    }
+    else if(currentTime > 10l && currentTime <= 60l)
+    {
+        this->score -= 94870;
+    }
+    else if(currentTime > 60l && currentTime <= 120l)
+    {
+        this->score -= 7210;
+    }
+    else
+    {
+        this->score -= 666;
     }
 }
 
@@ -222,8 +250,13 @@ void MainWindow::keyReleaseEvent(QKeyEvent *e)
 void MainWindow::updateLCD()
 {
     if(this->isWin) return;
-    if(!enemy->isDead)
+    if(!enemy->isDead && !player->isDead)
     {
+        ui->score->display(this->score);
+        if(this->score <= 0)
+        {
+            ui->score->display(0);
+        }
         ui->currentTolerance->display(TOTAL_HP - enemy->getHP());
         ui->restLife->display(player->getHP());
         ui->restBomb->display(player->getBombNum());
@@ -233,13 +266,20 @@ void MainWindow::updateLCD()
             ui->restBomb->display(0);
         }
     }
-    else
+    else if(enemy->isDead)
     {
         ui->currentTolerance->display(66666);
         ui->totalTolerance->display(66666);
         ui->restLife->display(6);
         ui->restBomb->display(6);
         this->isWin = true;
-        enemy->deleteLater();
+    }
+    else if(player->isDead)
+    {
+        ui->currentTolerance->display(88888);
+        ui->totalTolerance->display(88888);
+        ui->restLife->display(8);
+        ui->restBomb->display(8);
+        ui->score->display(0);
     }
 }

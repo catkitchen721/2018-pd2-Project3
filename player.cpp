@@ -20,6 +20,7 @@ Player::Player() : Minion(), shootingSound(new QMediaPlayer), playlist(new QMedi
 
     this->setHP(3);
     this->setBombNum(3);
+    this->isDead = false;
     connect(t, SIGNAL(timeout()), this, SLOT(checkHit()));
 }
 
@@ -141,6 +142,7 @@ void Player::checkHit()
         {
             if(this->getHP() <= 0)
             {
+                this->isDead = true;
                 this->setHP(0);
             }
             else
